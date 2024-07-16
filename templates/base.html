@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/carousel/">
+        <!-- Bootstrap core CSS -->
+    <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/carousel.css' %}" rel="stylesheet">
+    <link href="{% static 'css/footers.css' %}" rel="stylesheet">
+    {% block head %}
+    {% endblock %}
+</head>
+<body> 
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container">
+
+        <a href="{% url 'akromdev:home' %}" class="navbar-brand d-flex align-items-center">
+            <img src="{% static 'img/site-icon.png'%}" alt="icon-img" width="25" height="25" style="border-radius: 50%;">
+        </a>
+
+        <a class="navbar-brand" href="{% url 'akromdev:home' %}">
+            <b>Akrom<b>Dev</b></b>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'akromdev:about' %}">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'akromdev:videos' %}">Videos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'akromdev:audios' %}">Audios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'akromdev:contact' %}">Contacts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Blogs</a>
+            </li>
+        </ul>
+
+        <!-- <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form> -->
+
+        <ul class="navbar-nav">
+          {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'users:user-account' request.user.token %}"><b>Account</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'users:sign-out' %}"><b>Sign Out</b></a>
+            </li>
+          {% else %}
+              <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'users:sign-in' %}"><b>Sign In</b></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'users:sign-up' %}"><b>Sign Up</b></a>
+              </li>
+          {% endif %}
+        </ul>
+        </div>
+    </div>
+    </nav>
+</header>
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+<div class="container">
+    <footer class="py-5">
+      <div class="row">
+        <div class="col-2">
+          <h5><b>Our Pages</b></h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="{% url 'akromdev:home' %}" class="nav-link p-0 text-muted">Home</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Videos</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Contacts</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Blogs</a></li>
+          </ul>
+        </div>
+  
+        <div class="col-2">
+          <h5><b>Socials</b></h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Telegram</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Instagram</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Facebook</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">GitHub</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">LinkedIn</a></li>
+          </ul>
+        </div>
+  
+        <div class="col-4 offset-1">
+          <form>
+            <h5>Subscribe to our newsletter</h5>
+            <p>Monthly digest of whats new and exciting from us.</p>
+            <div class="d-flex w-100 gap-2">
+              <label for="newsletter1" class="visually-hidden">Email address</label>
+              <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+              <button class="btn btn-primary" type="button">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <div class="d-flex justify-content-between py-4 my-4 border-top">
+        <p>© 2021 Company, Inc. All rights reserved.</p>
+        <ul class="list-unstyled d-flex">
+          <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+          <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+          <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+<script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/dist/js/bootstrap.min.js' %}"></script>
+</body>

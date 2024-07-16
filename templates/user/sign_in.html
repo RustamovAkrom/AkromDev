@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %} Sign Up {% endblock %}
+{% block content %}
+<div class="modal modal-signin position-static d-block py-5" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-5 shadow">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+          <h2 class="center">Sign In</h2>
+        </div>
+  
+        <div class="modal-body p-5 pt-0">
+          <form class="">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control rounded-4" placeholder="first name..." required>
+              <label for="floatingInput">First Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control rounded-4" placeholder="last name..." required>
+              <label for="floatingInput">First Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control rounded-4" placeholder="username..." required>
+              <label for="floatingInput">Username</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control rounded-4" placeholder="name@example.com" required>
+              <label for="floatingInput">Email Address</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control rounded-4" placeholder="Password" required>
+              <label for="floatingPassword">Password</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control rounded-4" placeholder="Password Change" required>
+              <label for="floatingPassword">Password ( Сchange )</label>
+            </div>
+
+            <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Sign In</button>
+
+            <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+            <hr class="my-4">
+
+            <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
+
+            <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-4" type="submit">
+              <use xlink:href="#Google"></use></svg>
+              Sign up with Google
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
