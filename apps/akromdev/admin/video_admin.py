@@ -4,11 +4,11 @@ from apps.akromdev.models.video_model import Video, VideoCategory, VideoLike, Vi
 
 @admin.register(Video)
 class VideoAdmin(admin.ModelAdmin):
+    fields = ("author", "title", "description", "content", "cover", "video", "category", "watched", )
     list_display = ("title", "slug", "description", )
     search_fields = ("title", "slug", )
     list_filter = ("created_at", )
-
-
+    
 @admin.register(VideoCategory)
 class VideoCategoryAdmin(admin.ModelAdmin):
     list_display = ("name", )

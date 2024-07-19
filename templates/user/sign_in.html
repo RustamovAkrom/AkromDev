@@ -9,34 +9,35 @@
         </div>
   
         <div class="modal-body p-5 pt-0">
-          <form class="">
+          <form method="POST" accept="{% url 'users:sign-in'%}">
+            {% csrf_token %}
             <div class="form-floating mb-3">
-              <input type="text" class="form-control rounded-4" placeholder="first name..." required>
+              {{ form.first_name }}
               <label for="floatingInput">First Name</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="text" class="form-control rounded-4" placeholder="last name..." required>
+              {{ form.last_name }}
               <label for="floatingInput">First Name</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="text" class="form-control rounded-4" placeholder="username..." required>
+              {{ form.username }}
               <label for="floatingInput">Username</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="email" class="form-control rounded-4" placeholder="name@example.com" required>
+              {{ form.email }}
               <label for="floatingInput">Email Address</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="password" class="form-control rounded-4" placeholder="Password" required>
+              {{ form.password }}
               <label for="floatingPassword">Password</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="password" class="form-control rounded-4" placeholder="Password Change" required>
+              {{ form.password_change }}
               <label for="floatingPassword">Password ( Сchange )</label>
             </div>
 

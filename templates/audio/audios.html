@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %} Audios {% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/list-groups.css' %}">
+<link rel="stylesheet" href="{% static 'aos/aos.css' %}">
 {% endblock %}
 {% block content %}
 <div class="p-5 mb-4 bg-dark rounded-3">
@@ -12,17 +12,6 @@
     </div>
 </div>
 
-
-
-<div class="container">
-
-    <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-
-
-    </div>
-
-</div>
+{% block script %}
+{% endblock %}
 {% endblock %}

@@ -56,14 +56,23 @@
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form> -->
-
         <ul class="navbar-nav">
           {% if request.user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link active" href="{% url 'users:user-account' request.user.token %}"><b>Account</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="{% url 'users:sign-out' %}"><b>Sign Out</b></a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle show" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                
+                <img src="{{ request.user.account.first.avatar.url }}" alt="avatar" width="29" height="29" style="border-radius: 50%;">
+              </a>
+              <ul class="dropdown-menu show" aria-labelledby="navbarDropdown" data-bs-popper="none">
+                <li><a class="dropdown-item" href="{% url 'users:user-account' %}">Account</a></li>
+                <li><a class="dropdown-item" href="{% url 'users:user-profile' request.user.account.first.username %}">You`r profile</a></li>
+                <li><a class="dropdown-item" href="#">add Video</a></li>
+                <li><a class="dropdown-item" href="#">add Audio</a></li>
+                <li><a class="dropdown-item" href="#">add Photo</a></li>
+
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'users:sign-out' %}">Sign Out ></a></li>
+              </ul>
             </li>
           {% else %}
               <li class="nav-item">
@@ -78,6 +87,24 @@
     </div>
     </nav>
 </header>
+{% if messages %}
+{% for message in messages %}
+    <div class="bd-example">
+      {% if message.tags == 'error' %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% else %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endif %}
+    </div>
+{% endfor %}
+{% endif %}
+
 <body>
     {% block content %}
     {% endblock %}
@@ -130,6 +157,8 @@
       </div>
     </footer>
   </div>
+  {% block script %}
+  {% endblock %}
 <script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'assets/dist/js/bootstrap.min.js' %}"></script>
 </body>

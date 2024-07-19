@@ -4,7 +4,8 @@ from apps.akromdev.models.audio_model import Audio, AudioCategory
 
 @admin.register(Audio)
 class AudioAdmin(admin.ModelAdmin):
-    list_display = ("title", "slug", "description", "cover", "audio", "author", )
+    fields = ("title", "description", "cover", "category", "audio", "author", )
+    list_display = ("title", "slug", "description", "cover", "category", "audio", "author", )
     list_filter = ("created_at", )
     search_fields = ("title", "slug", "description", )
 

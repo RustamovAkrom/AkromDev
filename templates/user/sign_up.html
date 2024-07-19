@@ -10,16 +10,21 @@
         </div>
   
         <div class="modal-body p-5 pt-0">
-          <form class="">
+          <form accept="{% url 'users:sign-up' %}" method="POST">
+            {% csrf_token %}
             <div class="form-floating mb-3">
-              <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="name@example.com">
-              <label for="floatingInput">Email address</label>
+              {{ form.username }}
+              <label for="floatingInput">Email address or Username</label>
             </div>
+
             <div class="form-floating mb-3">
-              <input type="password" class="form-control rounded-4" id="floatingPassword" placeholder="Password">
+              {{ form.password }}
               <label for="floatingPassword">Password</label>
+              
             </div>
+
             <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Sign up</button>
+
             <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
             <hr class="my-4">
 

@@ -10,8 +10,8 @@ class Video(AbstractBaseModel):
     slug = models.SlugField(max_length=200, unique=True, db_index=True)
     description = models.CharField(max_length=200, blank=True, null=True)
     content = models.TextField()
-    cover = models.ImageField(upload_to=f"video/{slug}/covers/%Y/%m/%d/")
-    video = models.FileField(upload_to=f"video/{slug}/videos/%Y/%m/%d/")
+    cover = models.ImageField(upload_to=f"video/covers/%Y/%m/%d/")
+    video = models.FileField(upload_to=f"video/videos/%Y/%m/%d/")
     category = models.ForeignKey("akromdev.VideoCategory", models.CASCADE, related_name="videos")
     watched = models.IntegerField(default=0)
 
@@ -40,7 +40,7 @@ class VideoCategory(AbstractBaseModel):
 
 class VideoComment(AbstractBaseModel):
     video = models.ForeignKey(Video, models.CASCADE, related_name="comments")
-    user = models.ForeignKey("users.User", models.CASCADE, related_name="video_comments")
+    user = models.ForeignKey("users.UserAccount", models.CASCADE, related_name="video_comments")
     message = models.TextField()
 
     def __str__(self) -> str:
@@ -54,7 +54,7 @@ class VideoComment(AbstractBaseModel):
 
 class VideoLike(AbstractBaseModel):
     video = models.ForeignKey(Video, models.CASCADE, related_name="video_likes")
-    user = models.ForeignKey("users.User", models.DO_NOTHING, related_name="video_likes")
+    user = models.ForeignKey("users.UserAccount", models.DO_NOTHING, related_name="video_likes")
 
     def __str__(self) -> str:
         return f"({self.user}) to like video ({self.video})"

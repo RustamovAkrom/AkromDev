@@ -5,6 +5,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    "phonenumber_field",
     
     'apps.akromdev.apps.AkromdevConfig',
     'apps.shared.apps.SharedConfig',

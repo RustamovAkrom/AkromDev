@@ -9,11 +9,13 @@
           <h5 class="mb-0">You are log out ?</h5>
           <p class="mb-0">Siz sistemadan chiqib ketmoqchimisiz ?.</p>
         </div>
-        <div class="modal-footer flex-nowrap p-0">
-                
-          <a type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-right"><strong>Yes / Ha</strong></a>
-          <a href="{% url 'akromdev:home' %}" type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" data-bs-dismiss="modal">No / Yo`q</a>
-        </div>
+        <form action="{% url 'users:sign-out' %}" method="post">
+          {% csrf_token %}
+          <div class="modal-footer flex-nowrap p-0">
+            <button type="submit" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-right"><strong>Yes / Ha</strong></button>
+            <a href="{% url 'akromdev:home' %}" type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" data-bs-dismiss="modal">No / Yo`q</a>
+          </div>
+        </form>
       </div>
     </div>
   </div>

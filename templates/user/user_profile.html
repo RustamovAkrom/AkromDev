@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Profile  {% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row featurette">
+        <img src="{{ user_account.bg_cover.url }}" alt="img" class="bd-placeholder-img bd-placeholder-img-lg" width="100%" height="250">
+
+        <div class="col-md-7">
+            <div class="bd-example">
+                <!-- <svg class="bd-placeholder-img bd-placeholder-img-lg img-fluid" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg> -->
+                <div class="col-lg-4">
+                    <img src="{{ user_account.avatar.url }}" class="bd-placeholder-img rounded-circle mt-5" width="140" height="140"  role="img" focusable="false">
+                
+                    <h2>{{ user_account.first_name }} {{ user_account.last_name }}</h2>
+                    {% if user_account.bio %}
+                        <p>{{ user_account.bio }}</p>
+                    {% endif %}
+                    <div class="bd-example">
+                      <!-- <a href="" type="button" class="btn btn-outline-secondary">Unfollow</a>
+                      <a href="" type="button" class="btn btn-outline-secondary">Folow</a> -->
+
+                      {% for account_folowers in user_account.user.folowers.all %}
+                          {% if request.user == account_folowers %}
+                            Unfollow
+                          {% else %}
+                            Follow
+                          {% endif %}
+                      {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 mt-5">
+            <!-- right content -->
+              <h1>{{ user_account.user.folowings.all.count }}</h1>
+              <h1>{{ user_account.user.folowers.all.count }}</h1>
+        </div>
+        <div class="container mt-5 mb-5">
+            <div class="bd-example">
+                <nav>
+                  <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-videos-tab" data-bs-toggle="tab" data-bs-target="#nav-videos" type="button" role="tab" aria-controls="nav-videos" aria-selected="true">Videos</button>
+                    <button class="nav-link" id="nav-audios-tab" data-bs-toggle="tab" data-bs-target="#nav-audios" type="button" role="tab" aria-controls="nav-audios" aria-selected="false">Audios</button>
+                    <button class="nav-link" id="nav-photos-tab" data-bs-toggle="tab" data-bs-target="#nav-photos" type="button" role="tab" aria-controls="nav-photos" aria-selected="false">Photos</button>
+                  </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade active show" id="nav-videos" role="tabpanel" aria-labelledby="nav-videos-tab">
+
+                    <div class="row" data-masonry="{&quot;percentPosition&quot;: true }">
+                      {% if videos %}
+                        {% for video in videos %}
+                          <div class="col-sm-6 col-lg-4 mb-4">
+                            <div class=" overflow-hidden text-dark bg-white rounded-5 shadown-lg">
+                              <!-- <svg class="bd-placeholder-img card-img" width="100%" height="260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Card image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Card image</text></svg> -->
+                              <a href="{% url 'akromdev:video-detail' video.slug %}">
+                                <img src="{{ video.cover.url }}" alt="" width="100%" height="260" role="img" style="border-radius: 5%;">
+                              </a>
+                              <div class="mt-2">
+                                <p>
+                                  <b>{{ video.title }}</b>
+                                </p>
+                                <a href="{% url 'users:user-profile' video.author.username %}" class="link">
+                                  <small>{{ video.author.first_name }} {{ video.author.last_name }}</small>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        {% empty %}
+                          <h1>Now VIdoes</h1>
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+
+                  </div>
+                  <div class="tab-pane fade" id="nav-audios" role="tabpanel" aria-labelledby="nav-audios-tab">
+                    {% if audios %}
+                      {% for audio in audios %}
+                        <h3>{{ audio.title }}</h3>
+                        <h4>{{ audio.description }}</h4>
+                        <audio src="{{ audio.audio.url }}" controls></audio>
+                      {% empty %}
+                        <h1>Now Audios</h1>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                  <div class="tab-pane fade" id="nav-photos" role="tabpanel" aria-labelledby="nav-photos-tab">
+                  
+                    <div class="row" data-masonry="{&quot;percentPosition&quot;: true }">
+                      {% if pictures %}
+                        {% for picture in pictures %}
+                          <div class="col-sm-6 col-lg-4 mb-4">
+                            <div class="card">
+                              <a href="{% url 'akromdev:picture-detail' picture.slug %}">
+                                <img src="{{ picture.image.url }}" alt="img" class="bd-placeholder-img card-img" width="100%" height="260" role="img">
+                              </a>
+                              {% if picture.description %}
+                                  {{ picture.description }}
+                              {% endif %}
+                            </div>
+                          </div>
+                        {% empty %}
+                          <h1>Now Pictures</h1>
+                        {% endfor %}
+                      {% endif %}
+
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
