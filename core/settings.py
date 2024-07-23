@@ -15,7 +15,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "1")
 
 DEBUG = os.getenv("DEBUG", 1)
 
-ALLOWED_HOSTS = [".varcel.app"]
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = CUSTOM_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
@@ -50,12 +50,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
+import dj_database_url
+
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR.joinpath("db.sqlite3"),
-    }
+    "default": dj_database_url.parse(os.getenv("DATABASE_URL"))
 }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR.joinpath("db.sqlite3"),
+#     }
+# }
 
 # DATABASES = {
 #     "default": {
