@@ -15,7 +15,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "1")
 
 DEBUG = os.getenv("DEBUG", 1)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [".varcel.app"]
 
 INSTALLED_APPS = CUSTOM_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
