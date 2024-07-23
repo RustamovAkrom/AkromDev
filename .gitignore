@@ -19,3 +19,4 @@ envs/.env
 logs/
 staticfiles/
 MD/
+env/
