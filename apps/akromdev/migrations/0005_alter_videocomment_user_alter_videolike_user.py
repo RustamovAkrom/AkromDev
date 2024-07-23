@@ -7,19 +7,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('akromdev', '0004_alter_video_cover_alter_video_video'),
-        ('users', '0007_useraccount_bg_cover'),
+        ("akromdev", "0004_alter_video_cover_alter_video_video"),
+        ("users", "0007_useraccount_bg_cover"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='videocomment',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='video_comments', to='users.useraccount'),
+            model_name="videocomment",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="video_comments",
+                to="users.useraccount",
+            ),
         ),
         migrations.AlterField(
-            model_name='videolike',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='video_likes', to='users.useraccount'),
+            model_name="videolike",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="video_likes",
+                to="users.useraccount",
+            ),
         ),
     ]

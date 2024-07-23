@@ -1,4 +1,5 @@
 db.sqlite3
+.idea/
 __pycache__/
 django_admin.md
 django.md
@@ -13,3 +14,8 @@ projects.md
 python_web_deceloper_questions.md
 resume.md
 word.py
+.env/
+envs/.env
+logs/
+staticfiles/
+MD/

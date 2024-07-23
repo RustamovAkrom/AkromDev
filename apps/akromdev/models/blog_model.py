@@ -5,15 +5,19 @@ from apps.akromdev.utils import generate_slug
 
 
 class Post(AbstractBaseModel):
-    author = models.ForeignKey("users.UserAccount", models.CASCADE, related_name="posts")
+    author = models.ForeignKey(
+        "users.UserAccount", models.CASCADE, related_name="posts"
+    )
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length=200, unique=True)
-    content = models.ForeignKey("akromdev.PostContent", models.CASCADE, related_name="posts")
+    content = models.ForeignKey(
+        "akromdev.PostContent", models.CASCADE, related_name="posts"
+    )
     is_active = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.title
-    
+
     def save(self, *args, **kwargs):
         self.slug = generate_slug(self.title)
         return super().save(*args, **kwargs)
@@ -28,10 +32,10 @@ class PostContent(AbstractBaseModel):
     content = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to="post/contents/%Y/%m/%d", blank=True, null=True)
     file = models.FileField(upload_to="post/content/%Y/%m/%d", blank=True, null=True)
-    
+
     def __str__(self) -> str:
         return self.content or self.image or self.file
-    
+
     class Meta:
         verbose_name = _("Post content")
         verbose_name_plural = _("Post contents")
@@ -45,7 +49,7 @@ class PostComment(AbstractBaseModel):
 
     def __str__(self) -> str:
         return self.message
-    
+
     class Meta:
         verbose_name = _("Post comment")
         verbose_name_plural = _("Post Comments")
@@ -58,10 +62,10 @@ class PostLike(AbstractBaseModel):
 
     def __str__(self) -> str:
         return f"({self.user}) to like post ({self.post})"
-    
+
     def like_count(self):
         return self.user.objects.count()
-    
+
     class Meta:
         verbose_name = _("Post like")
         verbose_name_plural = _("Post likes")
@@ -69,12 +73,16 @@ class PostLike(AbstractBaseModel):
 
 
 class PostCommentLike(AbstractBaseModel):
-    comment = models.ForeignKey(PostComment, models.CASCADE, related_name="post_comment_likes")
-    user = models.ForeignKey("users.User", models.DO_NOTHING, related_name="post_comment_likes")
+    comment = models.ForeignKey(
+        PostComment, models.CASCADE, related_name="post_comment_likes"
+    )
+    user = models.ForeignKey(
+        "users.User", models.DO_NOTHING, related_name="post_comment_likes"
+    )
 
     def __str__(self) -> str:
         return f"({self.user} to like comment ({self.comment}))"
-    
+
     class Meta:
         verbose_name = _("Post comment like")
         verbose_name_plural = _("Post comment likes")

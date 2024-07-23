@@ -17,24 +17,48 @@
                         <p>{{ user_account.bio }}</p>
                     {% endif %}
                     <div class="bd-example">
-                      <!-- <a href="" type="button" class="btn btn-outline-secondary">Unfollow</a>
-                      <a href="" type="button" class="btn btn-outline-secondary">Folow</a> -->
-
-                      {% for account_folowers in user_account.user.folowers.all %}
-                          {% if request.user == account_folowers %}
-                            Unfollow
-                          {% else %}
-                            Follow
-                          {% endif %}
-                      {% endfor %}
+                      {% if request.user != user_account.user %}
+                        {% if request.user in user_account.user.folowings.all %}
+                          <form action="{% url 'users:user-unfollow' user_account.username %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-secondary">Unfollow</button>
+                          </form>
+                        {% else %}
+                          <form action="{% url 'users:user-follow' user_account.username %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-secondary">Folow</button>
+                          </form>
+                        {% endif %}
+                      {% else %}
+                      <a href="{% url 'users:user-account' %}" type="submit" class="btn btn-outline-secondary">Update profile</a>
+                      <a href="" type="submit" class="btn btn-outline-secondary">Share profile</a>
+                      {% endif %}
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-5 mt-5">
             <!-- right content -->
-              <h1>{{ user_account.user.folowings.all.count }}</h1>
-              <h1>{{ user_account.user.folowers.all.count }}</h1>
+            <div class="modal-body p-4 text-center">
+              <h5 class="mb-0">Enable this setting?</h5>
+              <p class="mb-7">
+                {% if user_account.socials %}
+                  {% for social in user_account.socials.all %}
+                    <a href="{{ social.url }}" class="nav-link text-dark">{{ social.name }}</a>
+                  {% endfor %}
+                {% endif %}
+              </p>
+            </div>
+            <div class="modal-footer flex-nowrap p-0 text-center">
+                <a href="{% url 'users:user-folowers' user_account.username %}" class="nav-link text-dark">
+                  <h3>{{ user_account.user.folowers.all.count }} folowers</h3>
+                </a>
+                <a href="{% url 'users:user-folowings' user_account.username %}" class="nav-link text-dark">
+                  <h3>{{ user_account.user.folowings.all.count }} folowings</h3>
+                </a>
+            </div>
+          </div>
+
         </div>
         <div class="container mt-5 mb-5">
             <div class="bd-example">
@@ -61,8 +85,8 @@
                                 <p>
                                   <b>{{ video.title }}</b>
                                 </p>
-                                <a href="{% url 'users:user-profile' video.author.username %}" class="link">
-                                  <small>{{ video.author.first_name }} {{ video.author.last_name }}</small>
+                                <a href="#" class="nav-link text-dark">
+                                  <small>{{ video.created_at }}</small>
                                 </a>
                               </div>
                             </div>
@@ -76,14 +100,31 @@
                   </div>
                   <div class="tab-pane fade" id="nav-audios" role="tabpanel" aria-labelledby="nav-audios-tab">
                     {% if audios %}
-                      {% for audio in audios %}
-                        <h3>{{ audio.title }}</h3>
-                        <h4>{{ audio.description }}</h4>
-                        <audio src="{{ audio.audio.url }}" controls></audio>
-                      {% empty %}
-                        <h1>Now Audios</h1>
-                      {% endfor %}
+                    <div class="container"> 
+                      <div class="row" data-masonry="{&quot;percentPosition&quot;: true }">
+                        {% for audio in audios %}
+                          <div class="col-sm-6 col-lg-4 mb-4">
+                            <div class="card">
+                              <a href="{% url 'akromdev:audio-detail' audio.slug %}">
+                                <img src="{{ audio.cover.url }}" alt="img" class="bd-placeholder-img card-img-top img-fluid" width="100%" height="200" role="img">
+                              </a>
+                              <div class="card-body">
+                                <h5 class="card-title">{{ audio.title }}</h5>
+                                <p class="card-text">
+                                  <a href="#" class="nav-link text-dark">
+                                    {{ audio.created_at }}
+                                  </a>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        {% empty %}
+                          <h1>Now Audios</h1>
+                        {% endfor %}
+                      </div>
+                    </div>
                     {% endif %}
+                    
                   </div>
                   <div class="tab-pane fade" id="nav-photos" role="tabpanel" aria-labelledby="nav-photos-tab">
                   

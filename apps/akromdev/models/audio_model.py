@@ -1,4 +1,4 @@
-from django.db import models 
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from apps.shared.models import AbstractBaseModel
 from apps.akromdev.utils import generate_slug
@@ -9,7 +9,7 @@ class AudioCategory(AbstractBaseModel):
 
     def __str__(self) -> str:
         return self.name
-    
+
     class Meta:
         verbose_name = _("Audio Category")
         verbose_name_plural = _("Audio Categories")
@@ -17,7 +17,9 @@ class AudioCategory(AbstractBaseModel):
 
 
 class Audio(AbstractBaseModel):
-    author = models.ForeignKey("users.UserAccount", models.CASCADE, related_name="audios")
+    author = models.ForeignKey(
+        "users.UserAccount", models.CASCADE, related_name="audios"
+    )
     title = models.CharField(max_length=120)
     slug = models.SlugField(max_length=200, unique=True)
     description = models.CharField(max_length=200, blank=True, null=True)
@@ -31,10 +33,8 @@ class Audio(AbstractBaseModel):
     def save(self, *args, **kwargs):
         self.slug = generate_slug(self.title)
         return super().save(*args, **kwargs)
-    
+
     class Meta:
         verbose_name = _("Audio")
         verbose_name_plural = _("Audios")
         db_table = "audios"
-
-

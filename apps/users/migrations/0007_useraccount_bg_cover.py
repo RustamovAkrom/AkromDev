@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0006_useraccount_email_alter_useraccount_username'),
+        ("users", "0006_useraccount_email_alter_useraccount_username"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='useraccount',
-            name='bg_cover',
-            field=models.ImageField(blank=True, default='bg/default/bg.jpg', null=True, upload_to='bg/images/%Y/%m/%d'),
+            model_name="useraccount",
+            name="bg_cover",
+            field=models.ImageField(
+                blank=True,
+                default="bg/default/bg.jpg",
+                null=True,
+                upload_to="bg/images/%Y/%m/%d",
+            ),
         ),
     ]

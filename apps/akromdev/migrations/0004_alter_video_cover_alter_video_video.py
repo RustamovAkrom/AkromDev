@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('akromdev', '0003_alter_about_social'),
+        ("akromdev", "0003_alter_about_social"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='video',
-            name='cover',
-            field=models.ImageField(upload_to='video/covers/%Y/%m/%d/'),
+            model_name="video",
+            name="cover",
+            field=models.ImageField(upload_to="video/covers/%Y/%m/%d/"),
         ),
         migrations.AlterField(
-            model_name='video',
-            name='video',
-            field=models.FileField(upload_to='video/videos/%Y/%m/%d/'),
+            model_name="video",
+            name="video",
+            field=models.FileField(upload_to="video/videos/%Y/%m/%d/"),
         ),
     ]

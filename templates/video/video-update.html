@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ video.title }} Update {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="col-md-10 mx-auto col-lg-5">
+      <div class="modal-header p-5 pb-4 border-bottom-0 bg-light">
+        <!-- <h5 class="modal-title">Modal title</h5> -->
+        <h3 class="fw-bold mb-0">`{{ video.title }}` Update</h3>
+        <a href="{% url 'akromdev:video-detail' video.slug %}" class="btn-close" ></a>
+      </div>
+      <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST" action="{% url 'akromdev:video-update' video.slug %}">
+            {% csrf_token %}
+          <div class="form-floating mb-3">
+            {{ form.title }}
+            <label for="floatingInput">title</label>
+            <div class="invalid-feedback">
+              Enter valid title
+            </div>
+          </div>
+
+          <div class="form-floating mb-3">
+            {{ form.description }}
+            <label for="floatingInput">Description</label>
+            <div class="invalid-feedback">
+              Enter valid description
+            </div>
+          </div>
+
+          <div class="form-floating mb-3">
+            {{ form.content }}
+            <label for="floatingInput">Content</label>
+            <div class="invalid-feedback">
+              Enter valid content
+            </div>
+          </div>
+
+          <div class="form-floating mb-3">
+            {{ form.category }}
+            <!-- <label for="floatingInput">Category</label> -->
+            <div class="invalid-feedback">
+              Enter valid category
+            </div>
+          </div>
+
+          <div>
+            <button class="w-100 btn btn-lg btn-primary mt-5" type="submit">Update</button>
+            <a href="{% url 'akromdev:video-detail' video.slug %}" class="w-100 btn btn-lg btn-outline-secondary mt-3" type="submit">Cansel</a>
+          </div>
+
+          <hr class="my-5">
+        </form>
+      </div>
+</div>
+{% endblock %}

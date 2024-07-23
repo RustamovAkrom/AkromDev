@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from typing import Any
+from django.views import View
 
-# Create your views here.
+
+class BaseSharedView(View):
+    def __init__(self, **kwargs: Any):
+
+        super().__init__(**kwargs)

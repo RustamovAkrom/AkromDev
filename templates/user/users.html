@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+      {% for user in users %}
+        <div class="col-lg-4">
+          <img src="{{ user.account.first.avatar.url }}" alt="img" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img">
+          <h2>{{ user.account.first.first_name }} {{ user.account.first.last_name }}</h2>
+          {% if user.account.first.bio %}
+            <p>{{ user.account.first.bio }}</p>
+          {% endif %}
+          <p><a class="btn btn-secondary" href="{% url 'users:user-profile' user.account.first.username %}">Go to profile »</a></p>
+        </div><!-- /.col-lg-4 -->
+      {% empty %}
+      <center><h1>Now Users</h1></center>
+      {% endfor %}
+      </div>
+</div>
+{% endblock %}

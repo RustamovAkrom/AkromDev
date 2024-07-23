@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Audio Create {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="col-md-10 mx-auto col-lg-5">
+
+        <form class="p-4 p-md-5 border rounded-3 bg-light" action="{% url 'akromdev:audio-create' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+          <div class="form-floating mb-3">
+            {{ form.title }}
+            <label for="floatingInput">title</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            {{ form.description }}
+            <label for="floatingInput">Description</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            {{ form.category }}
+          </div>
+
+          <div class="col-12">
+              <label for="avatar" class="form-label">Cover</label>
+              {{ form.cover }}
+            <div class="invalid-feedback">
+              Enter valid image
+            </div>
+          </div>
+
+          <div class="col-12">
+              <label for="avatar" class="form-label">Video</label>
+              {{ form.audio }}
+            <div class="invalid-feedback">
+              Enter valid audio
+            </div>
+          </div>
+        
+          <button class="w-100 btn btn-lg btn-primary mt-5" type="submit">Create</button>
+          <hr class="my-4">
+
+          <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+        </form>
+
+      </div>
+</div>
+{% endblock %}

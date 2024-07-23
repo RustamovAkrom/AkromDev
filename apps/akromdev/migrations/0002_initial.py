@@ -10,95 +10,161 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('akromdev', '0001_initial'),
-        ('users', '0001_initial'),
+        ("akromdev", "0001_initial"),
+        ("users", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='about',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='user_about', to=settings.AUTH_USER_MODEL),
+            model_name="about",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="user_about",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='about',
-            name='social',
-            field=models.ManyToManyField(related_name='url_about', to='akromdev.aboutsocialurl'),
+            model_name="about",
+            name="social",
+            field=models.ManyToManyField(
+                related_name="url_about", to="akromdev.aboutsocialurl"
+            ),
         ),
         migrations.AddField(
-            model_name='audio',
-            name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='audios', to=settings.AUTH_USER_MODEL),
+            model_name="audio",
+            name="author",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="audios",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='post',
-            name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='posts', to='users.useraccount'),
+            model_name="post",
+            name="author",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="posts",
+                to="users.useraccount",
+            ),
         ),
         migrations.AddField(
-            model_name='postcomment',
-            name='post',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='akromdev.post'),
+            model_name="postcomment",
+            name="post",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="comments",
+                to="akromdev.post",
+            ),
         ),
         migrations.AddField(
-            model_name='postcomment',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to=settings.AUTH_USER_MODEL),
+            model_name="postcomment",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="comments",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='postcommentlike',
-            name='comment',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='post_comment_likes', to='akromdev.postcomment'),
+            model_name="postcommentlike",
+            name="comment",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="post_comment_likes",
+                to="akromdev.postcomment",
+            ),
         ),
         migrations.AddField(
-            model_name='postcommentlike',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='post_comment_likes', to=settings.AUTH_USER_MODEL),
+            model_name="postcommentlike",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="post_comment_likes",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='post',
-            name='content',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='posts', to='akromdev.postcontent'),
+            model_name="post",
+            name="content",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="posts",
+                to="akromdev.postcontent",
+            ),
         ),
         migrations.AddField(
-            model_name='postlike',
-            name='post',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='post_likes', to='akromdev.post'),
+            model_name="postlike",
+            name="post",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="post_likes",
+                to="akromdev.post",
+            ),
         ),
         migrations.AddField(
-            model_name='postlike',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='post_likes', to=settings.AUTH_USER_MODEL),
+            model_name="postlike",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="post_likes",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='video',
-            name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='videos', to='users.useraccount'),
+            model_name="video",
+            name="author",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="videos",
+                to="users.useraccount",
+            ),
         ),
         migrations.AddField(
-            model_name='video',
-            name='category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='videos', to='akromdev.videocategory'),
+            model_name="video",
+            name="category",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="videos",
+                to="akromdev.videocategory",
+            ),
         ),
         migrations.AddField(
-            model_name='videocomment',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='video_comments', to=settings.AUTH_USER_MODEL),
+            model_name="videocomment",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="video_comments",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='videocomment',
-            name='video',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='akromdev.video'),
+            model_name="videocomment",
+            name="video",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="comments",
+                to="akromdev.video",
+            ),
         ),
         migrations.AddField(
-            model_name='videolike',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='video_likes', to=settings.AUTH_USER_MODEL),
+            model_name="videolike",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="video_likes",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='videolike',
-            name='video',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='video_likes', to='akromdev.video'),
+            model_name="videolike",
+            name="video",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="video_likes",
+                to="akromdev.video",
+            ),
         ),
     ]

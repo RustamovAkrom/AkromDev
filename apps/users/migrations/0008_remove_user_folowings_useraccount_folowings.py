@@ -6,17 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0007_useraccount_bg_cover'),
+        ("users", "0007_useraccount_bg_cover"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='user',
-            name='folowings',
+            model_name="user",
+            name="folowings",
         ),
         migrations.AddField(
-            model_name='useraccount',
-            name='folowings',
-            field=models.ManyToManyField(blank=True, db_index=True, related_name='folowers', to='users.useraccount'),
+            model_name="useraccount",
+            name="folowings",
+            field=models.ManyToManyField(
+                blank=True,
+                db_index=True,
+                related_name="folowers",
+                to="users.useraccount",
+            ),
         ),
     ]

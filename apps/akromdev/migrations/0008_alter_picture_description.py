@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('akromdev', '0007_audio_category'),
+        ("akromdev", "0007_audio_category"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='picture',
-            name='description',
+            model_name="picture",
+            name="description",
             field=models.CharField(blank=True, max_length=200, null=True),
         ),
     ]

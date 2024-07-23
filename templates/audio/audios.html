@@ -7,9 +7,35 @@
 {% block content %}
 <div class="p-5 mb-4 bg-dark rounded-3">
     <div class="container-fluid py-5">
-      <h1 class="display-5 fw-bold">Custom jumbotron</h1>
-      <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
+      <h1 class="display-5 fw-bold">Musikalar</h1>
+      <p class="col-md-8 fs-4">Eng sara musikalarni faqat bizda tinglang barcha qulayliklar faqat bitta obunada <a href="{% url 'users:sign-up' %}" class="nav-link text-white">Sign Up</a>
     </div>
+</div>
+<div class="container"> 
+  <div class="row" data-masonry="{&quot;percentPosition&quot;: true }">
+    {% for audio in audios %}
+      <div class="col-sm-6 col-lg-4 mb-4">
+        <div class="card">
+          <a href="{% url 'akromdev:audio-detail' audio.slug %}">
+            <img src="{{ audio.cover.url }}" alt="img" class="bd-placeholder-img card-img-top img-fluid" width="100%" height="200" role="img">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">{{ audio.title }}</h5>
+            <p class="card-text">
+              <a href="{% url 'users:user-profile' audio.author.username %}" class="nav-link text-dark">
+                <img src="{{ audio.author.avatar.url }}" alt="img" width="40px" height="40px" style="border-radius: 50%;">
+                <span>
+                  {{ audio.author.first_name }} {{ audio.author.last_name }}
+                </span>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <h1>Now Audios</h1>
+    {% endfor %}
+  </div>
 </div>
 
 {% block script %}

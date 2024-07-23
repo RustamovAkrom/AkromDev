@@ -15,4 +15,3 @@ class UserAccountAdmin(admin.ModelAdmin):
 @admin.register(UserAccountSocialUrl)
 class UseraccountSocialUrlAdmin(admin.ModelAdmin):
     pass
-

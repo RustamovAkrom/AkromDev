@@ -7,17 +7,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0008_remove_user_folowings_useraccount_folowings'),
+        ("users", "0008_remove_user_folowings_useraccount_folowings"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='useraccount',
-            name='folowings',
+            model_name="useraccount",
+            name="folowings",
         ),
         migrations.AddField(
-            model_name='user',
-            name='folowings',
-            field=models.ManyToManyField(blank=True, db_index=True, related_name='folowers', to=settings.AUTH_USER_MODEL),
+            model_name="user",
+            name="folowings",
+            field=models.ManyToManyField(
+                blank=True,
+                db_index=True,
+                related_name="folowers",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

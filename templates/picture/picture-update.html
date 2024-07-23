@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ picture.title }} Update {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="col-md-10 mx-auto col-lg-5">
+        <div class="modal-header p-5 pb-4 border-bottom-0 bg-light">
+            <!-- <h5 class="modal-title">Modal title</h5> -->
+            <h3 class="fw-bold mb-0">`{{ picture.title }}` Update</h3>
+            <a href="{% url 'akromdev:picture-detail' picture.slug %}" class="btn-close" ></a>
+          </div>
+        <form class="p-4 p-md-5 border rounded-3 bg-light" action="{% url 'akromdev:picture-update' picture.slug %}" method="POST">
+            {% csrf_token %}
+            
+          <div class="form-floating mb-3 mt-5">
+            {{ form.description }}
+            <label for="floatingInput">Description</label>
+            <div class="invalid-feedback">
+                Enter valid description
+              </div>
+          </div>
+
+          <div>
+            <button class="w-100 btn btn-lg btn-primary mt-5" type="submit">Update</button>
+            <a href="{% url 'akromdev:picture-detail' picture.slug %}" class="w-100 btn btn-lg btn-outline-secondary mt-3" type="submit">Cansel</a>
+          </div>
+          <hr class="my-4">
+
+        </form>
+
+      </div>
+</div>
+{% endblock %}

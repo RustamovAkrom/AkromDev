@@ -11,10 +11,8 @@ class Contact(AbstractBaseModel):
 
     def __str__(self) -> str:
         return self.message
-    
+
     class Meta:
         verbose_name = _("Contact")
         verbose_name_plural = _("Contacts")
         db_table = "contacts"
-
-        

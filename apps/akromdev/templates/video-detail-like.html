@@ -1,0 +1,12 @@
+{% load video_like %}
+<form action="{% url 'akromdev:video-like' video.slug %}" method="get">
+    <button type="submit" class="btn btn-outline-secondary">
+        {% if video|check_like:request.user.account.first %}
+        <span>❤️</span>
+        {% else %}
+        <span>🤍</span>
+        {% endif %}
+        <small><b>{{ video.video_likes.all.count }} likes</b></small>
+    </button>
+</form>
+

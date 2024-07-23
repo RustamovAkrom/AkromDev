@@ -10,7 +10,7 @@ class AboutSocialUrl(AbstractBaseModel):
 
     def __str__(self) -> str:
         return self.name
-    
+
     class Meta:
         verbose_name = _("About social url")
         verbose_name_plural = _("Avout social urls")
@@ -21,7 +21,9 @@ class About(AbstractBaseModel):
     user = models.OneToOneField("users.User", models.CASCADE, related_name="user_about")
     title = models.CharField(max_length=120)
     content = models.TextField()
-    social = models.ManyToManyField(AboutSocialUrl, related_name="url_about", blank=True)
+    social = models.ManyToManyField(
+        AboutSocialUrl, related_name="url_about", blank=True
+    )
 
     def __str__(self) -> str:
         return self.title
@@ -30,7 +32,3 @@ class About(AbstractBaseModel):
         verbose_name = _("About")
         verbose_name_plural = _("Abouts")
         db_table = "abouts"
-
-
-
-        

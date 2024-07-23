@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Home page {% endblock %}
+{% load i18n %}
+{% block title %} AkromDev {% endblock %}
 {% block content %}
+
 <main>
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -16,7 +18,7 @@
       <div class="container">
           <div class="carousel-caption text-start">
           <h1>Example headline.</h1>
-          <p>Some representative placeholder content for the first slide of the carousel.</p>
+          <p>translate "Some representative placeholder content for the first slide of the carousel.</p>
           <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
           </div>
       </div>
@@ -109,6 +111,7 @@
 
         </div>
     </div>
+    <div class="parallax-window parallax-window-2" data-parallax="scroll" data-image-src="{% static 'img/site-icon.png' %}"></div>
 
     <hr class="featurette-divider">
 

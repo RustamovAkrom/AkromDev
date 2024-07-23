@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class AkromdevConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.akromdev'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "apps.akromdev"
