@@ -6,7 +6,7 @@ import os
 from .config import *
 from dotenv import load_dotenv, find_dotenv
 
-load_dotenv(find_dotenv("envs/.env"))
+load_dotenv(find_dotenv(".env"))
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
