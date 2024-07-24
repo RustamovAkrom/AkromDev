@@ -6,7 +6,7 @@ import os
 from .config import *
 from dotenv import load_dotenv, find_dotenv
 
-load_dotenv(find_dotenv(".env"))
+load_dotenv(find_dotenv("envs/.env"))
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,9 +53,10 @@ WSGI_APPLICATION = "core.wsgi.application"
 import dj_database_url
 
 
-DATABASES = {
-    "default": dj_database_url.parse(os.getenv("DATABASE_URL"))
-}
+# DATABASES = {
+#     "default": dj_database_url.parse(os.getenv("DATABASE_URL"))
+# }
+
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.sqlite3",
@@ -63,17 +64,17 @@ DATABASES = {
 #     }
 # }
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.getenv("NAME"),
-#         "USER": os.getenv("USER"),
-#         "PASSWORD": os.getenv("PASSWORD"),
-#         "HOST": os.getenv("HOST"),
-#         "PORT": os.getenv("PORT"),
-#         "TEST": {"NAME": "test_akromdev_db_2"}
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("NAME"),
+        "USER": os.getenv("USER"),
+        "PASSWORD": os.getenv("PASSWORD"),
+        "HOST": os.getenv("HOST"),
+        "PORT": os.getenv("PORT"),
+        "TEST": {"NAME": "test_akromdev_db_2"}
+    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
