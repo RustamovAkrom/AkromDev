@@ -1,0 +1,13 @@
+venv/
+env/
+__pycache__/
+MD/
+media/
+staticfiles/
+DATABASE_CONF.md
+ELASTIC_SEARCH.md
+word.py
+varcel.json
+README.md
+runtime.txt
+db.sqlite3

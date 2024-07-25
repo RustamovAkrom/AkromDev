@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: compose/django/Dockerfile
+
+    env_file:
+      - envs/.env
+
+    image: django_web
+
+    command: /start
+
+    volumes:
+      - .:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      - postgres
+      - redis
+  
+  postgres: 
+    image: postgres:15-alpine
+    container_name: django_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - USER=postgres
+      - NAME=akromdev
+      - PASSWORD=2007
+    ports:
+      - "5432:5432"
+  
+  redis:
+    image: redis:6.2-alpine
+    env_file:
+      - envs/.env
+    volumes:
+      - redis_data:/data
+
+  nginx:
+    build: 
+      context: .
+      dockerfile: ./compose/nginx/Dockerfile
+    ports:
+      - '80:80'
+      - '443:443'
+    depends_on:
+      - web
+    logging:
+      options:
+        max-size: '10m'
+        mix-file: '3'
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+
+volumes:
+  media_volume:
+  static_volume:
+  postgres_data:
+  redis_data:

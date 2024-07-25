@@ -120,19 +120,19 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-# CACHES = {
-#     'default': {
-#         "BACKEND": "django.core.cache.backends.redis.RedisCache", # Cache for redis
-#         "LOCATION": "redis://localhost:6279/1"
-#     },
-# }
-
 CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache", # Cache for database
-        "LOCATION": "my_cache_table",
-    }
+    'default': {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache", # Cache for redis
+        "LOCATION": "redis://localhost:6279/1"
+    },
 }
+
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.db.DatabaseCache", # Cache for database
+#         "LOCATION": "my_cache_table",
+#     }
+# }
 
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
