@@ -4,7 +4,6 @@ from apps.akromdev.models.blog_model import (
     PostComment,
     PostCommentLike,
     PostLike,
-    PostContent,
 )
 
 
@@ -21,17 +20,7 @@ class PostAdmin(admin.ModelAdmin):
         "slug",
     )
     list_filter = ("created_at",)
-
-
-@admin.register(PostContent)
-class PostContentAdmin(admin.ModelAdmin):
-    list_display = (
-        "content",
-        "image",
-        "file",
-    )
-    search_fields = ("content",)
-    list_filter = ("created_at",)
+    fields = ("author", "title", "bg_image", "description", "content", "is_active")
 
 
 @admin.register(PostComment)

@@ -10,9 +10,9 @@ class Post(AbstractBaseModel):
     )
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length=200, unique=True)
-    content = models.ForeignKey(
-        "akromdev.PostContent", models.CASCADE, related_name="posts"
-    )
+    bg_image = models.ImageField(upload_to="blog/images/%Y/%m/%d", blank=True, null=True)
+    description = models.CharField(max_length=100, blank=True, null=True)
+    content = models.TextField()
     is_active = models.BooleanField(default=False)
 
     def __str__(self) -> str:
@@ -26,20 +26,6 @@ class Post(AbstractBaseModel):
         verbose_name = _("Post")
         verbose_name_plural = _("Posts")
         db_table = "posts"
-
-
-class PostContent(AbstractBaseModel):
-    content = models.TextField(blank=True, null=True)
-    image = models.ImageField(upload_to="post/contents/%Y/%m/%d", blank=True, null=True)
-    file = models.FileField(upload_to="post/content/%Y/%m/%d", blank=True, null=True)
-
-    def __str__(self) -> str:
-        return self.content or self.image or self.file
-
-    class Meta:
-        verbose_name = _("Post content")
-        verbose_name_plural = _("Post contents")
-        db_table = "post_contents"
 
 
 class PostComment(AbstractBaseModel):

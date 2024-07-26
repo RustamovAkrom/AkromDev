@@ -4,7 +4,11 @@
 {% block content %}
 <div class="container mt-5">
     <div class="col-md-10 mx-auto col-lg-5">
-
+        <div class="modal-header p-5 pb-4 border-bottom-0 bg-light">
+          <!-- <h5 class="modal-title">Modal title</h5> -->
+          <h3 class="fw-bold mb-0">Audio Create</h3>
+          <a href="{% url 'akromdev:audios' %}" class="btn-close"></a>
+        </div>
         <form class="p-4 p-md-5 border rounded-3 bg-light" action="{% url 'akromdev:audio-create' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
           <div class="form-floating mb-3">

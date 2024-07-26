@@ -16,7 +16,10 @@ resume.md
 word.py
 .env/
 envs/.env
-logs/
+logs/main_debug.log
+logs/main.log
 staticfiles/
 MD/
 env/
+ELASTIC_SEARCH.md
+settings.py

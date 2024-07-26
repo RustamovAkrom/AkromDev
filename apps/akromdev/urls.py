@@ -1,6 +1,8 @@
 from django.urls import path
 from .views.home_view import IndexView
 from .views.contact_view import ContactView
+from .views.about_view import AboutView
+
 from .views.video_view import (
     VideoView,
     VideoDetailView,
@@ -9,7 +11,6 @@ from .views.video_view import (
     VideoUpdateView,
     video_like,
 )
-from .views.about_view import AboutView
 from .views.picture_view import (
     PictureView,
     PictureDetailView,
@@ -17,7 +18,20 @@ from .views.picture_view import (
     PictureDeleteView,
     PictureUpdateView,
 )
-from .views.audio_view import AudioView, AudioDetailView, AudioCreateView, AudioUpdateView, AudioDeleteView
+from .views.audio_view import (
+    AudioView, 
+    AudioDetailView, 
+    AudioCreateView, 
+    AudioUpdateView, 
+    AudioDeleteView
+)
+from .views.blog_view import (
+    BlogPostDetail,
+    BlogPostView,
+    PostUpdateView,
+    PostDeleteView,
+    PostCreateView,
+)
 
 
 app_name = "akromdev"
@@ -37,6 +51,11 @@ urlpatterns = [
     path(
         "picture-delete/<str:slug>", PictureDeleteView.as_view(), name="picture-delete"
     ),
+    path("blog-posts/", BlogPostView.as_view(), name="posts"),
+    path("blog-post-detail/<str:slug>", BlogPostDetail.as_view(), name="post-detail"),
+    path("post-update/<str:slug>", PostUpdateView.as_view(), name="post-update"),
+    path("post-delete/<str:slug>", PostDeleteView.as_view(), name="post-delete"),
+    path("post-create/", PostCreateView.as_view(), name="post-create"),
     path("videos/", VideoView.as_view(), name="videos"),
     path("video-create/", VideoCreateView.as_view(), name="video-create"),
     path("video-detail/<str:slug>", VideoDetailView.as_view(), name="video-detail"),

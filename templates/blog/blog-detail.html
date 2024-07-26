@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ post.title }} {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row g-5">
+        <div class="col-md-8">
+          <h3 class="pb-4 mb-4 fst-italic border-bottom">
+            From the <a href="{% url 'users:user-profile' post.author.username %}" class="nav-link text-dark">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+            {% if request.user == post.author.user %}
+                <a href="{% url 'akromdev:post-update' post.slug %}" class="btn btn-outline-primary">Update</a>
+                <a href="{% url 'akromdev:post-delete' post.slug %}" class="btn btn-outline-danger">Delete</a>
+            {% endif %}
+          </h3>
+    
+          <article class="blog-post">
+            <h2 class="blog-post-title">{{ post.title }}</h2>
+            <p class="blog-post-meta">{{ post.created_at }} by | <a href="{% url 'users:user-profile' post.author.username %}">{{ post.author.first_name }} {{ post.author.last_name }}</a></p>
+            <blockquote class="blockquote">
+                {% if post.description %}
+                    <p>{{ post.description }}</p>
+                {% endif %}
+            </blockquote>
+            <p>{{ post.content }}</p>
+            <hr>
+          </article>
+
+        </div>
+        <!-- about -->
+        <div class="col-md-4">
+          <div class="position-sticky" style="top: 2rem;">
+              {% if post.author.bio %}
+            <div class="p-4 mb-3 bg-light rounded">
+              <h4 class="fst-italic">About</h4>
+              <p class="mb-0">{{ post.author.bio }}</p>
+            </div>
+            {% endif %}
+    
+            <div class="p-4">
+              <h4 class="fst-italic">Archives</h4>
+              <ol class="list-unstyled mb-0">
+                {% for post in posts %}
+                    <li><a href="{% url 'akromdev:post-detail' post.slug %}">{{ post.created_at.date }} <small>{{ post.created_at.time }}</small></a></li>
+                {% endfor %}
+              </ol>
+            </div>
+    
+            <div class="p-4">
+              <h4 class="fst-italic">Elsewhere</h4>
+              <ol class="list-unstyled">
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Facebook</a></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+{% endblock %}

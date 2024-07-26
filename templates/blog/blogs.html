@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Blog {% endblock %}
+{% block content %}
+<main class="container mt-5">
+    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+      <div class="col-md-6 px-0">
+        <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
+        <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+        <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
+      </div>
+    </div>
+  
+    <div class="row mb-2">
+        {% for post in posts %}
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">
+                    <img src="{{ post.author.avatar.url }}" alt="" width="40px" height="40px" style="border-radius: 50%;">
+                    <span>{{ post.author.first_name }} {{ post.author.last_name }}</span>
+                </strong>
+                <h3 class="mb-0">{{ post.title }}</h3>
+                <div class="mb-1 text-muted">{{ post.created_at.date }}</div>
+                {% if post.description %}
+                    <p class="card-text mb-auto">{{ post.description }}</p>
+                {% endif %}
+                <a href="{% url 'akromdev:post-detail' post.slug %}" class="stretched-link">Continue reading</a>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                {% if post.bg_image %}
+                <img src="{{ post.bg_image.url }}" alt="img" class="bd-placeholder-img" width="200" height="250">
+                {% endif %}
+            </div>
+            </div>
+        </div>
+        {% empty %}
+        <div align="center" class="mt-5 mb-5">
+            <h1>Now Contents</h1>
+        </div>
+        {% endfor %}
+    </div>
+  
+    <div class="row g-5">
+        <!-- button content -->
+    </div>
+  
+  </main>
+{% endblock %}

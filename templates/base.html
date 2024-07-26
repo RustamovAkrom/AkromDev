@@ -51,7 +51,7 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'akromdev:contact' %}">Contacts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Blogs</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'akromdev:posts' %}">Blogs</a>
             </li>
         </ul>
 
@@ -72,6 +72,7 @@
                 <li><a class="dropdown-item" href="{% url 'akromdev:video-create' %}">add Video</a></li>
                 <li><a class="dropdown-item" href="{% url 'akromdev:audio-create' %}">add Audio</a></li>
                 <li><a class="dropdown-item" href="{% url 'akromdev:picture-create' %}">add Photo</a></li>
+                <li><a class="dropdown-item" href="{% url 'akromdev:post-create' %}">add Post</a></li>
 
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'users:sign-out' %}">Sign Out ></a></li>
