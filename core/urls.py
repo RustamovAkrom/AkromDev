@@ -3,6 +3,7 @@ from django.urls import path, include
 
 from django.conf.urls.static import static
 from django.conf import settings
+from graphene_django.views import GraphQLView
 
 from .schema import swagger_urlpatterns
 
@@ -11,6 +12,7 @@ urlpatterns = [
     path("admin/", admin.site.urls, name="admin_panel"),
     path("", include("apps.akromdev.urls")),
     path("users/", include("apps.users.urls")),
+    path("graphql/", GraphQLView.as_view(graphiql=True)),
 ]
 
 urlpatterns += swagger_urlpatterns

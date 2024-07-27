@@ -31,9 +31,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - USER=postgres
-      - NAME=akromdev
-      - PASSWORD=2007
+      - DATABASE_USER=postgres
+      - DATABASE_NAME=akromdev
+      - DATABASE_PASSWORD=2007
     ports:
       - "5432:5432"
   

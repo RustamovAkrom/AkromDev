@@ -21,4 +21,5 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt",
     "drf_yasg",
     "django_filters",
+    "graphene_django",
 ]

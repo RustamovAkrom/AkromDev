@@ -1,8 +1,8 @@
-#!bin/bash
+#!/bin/bash
 
 set -o errexit
 set -o nounset
 
 sleep 10
 
-celery -A core worker -l INFO
+celery -A core beat -l INFO

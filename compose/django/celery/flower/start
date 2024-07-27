@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+sleep 10
+
+celery -A core --broker="${CELERY_BROKER}" flower

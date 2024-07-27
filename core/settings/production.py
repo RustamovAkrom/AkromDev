@@ -3,10 +3,9 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = []
 
-import dj_database_url
-
+# import dj_database_url
 
 # DATABASES = {
 #     "default": dj_database_url.parse(os.getenv("DATABASE_URL"))
