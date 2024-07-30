@@ -96,4 +96,5 @@ class SignInForm(forms.ModelForm):
             "password_change",
         )
 
-__all__ = ("SignInForm", )
+
+__all__ = ("SignInForm",)

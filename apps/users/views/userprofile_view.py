@@ -38,4 +38,5 @@ class UserProfileView(View):
 
         return redirect("users:sign-up")
 
-__all__ = ("UserProfileView", )
+
+__all__ = ("UserProfileView",)

@@ -4,7 +4,16 @@ from apps.users.models.useraccount_model import UserAccount
 
 @admin.register(UserAccount)
 class UserAccountAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        "username",
+        "first_name",
+        "last_name",
+    )
+    search_fields = (
+        "username",
+        "first_name",
+        "last_name",
+    )
 
 
-__all__ = ("UserAccountAdmin", )
+__all__ = ("UserAccountAdmin",)

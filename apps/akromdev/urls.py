@@ -19,11 +19,11 @@ from .views.picture_view import (
     PictureUpdateView,
 )
 from .views.audio_view import (
-    AudioView, 
-    AudioDetailView, 
-    AudioCreateView, 
-    AudioUpdateView, 
-    AudioDeleteView
+    AudioView,
+    AudioDetailView,
+    AudioCreateView,
+    AudioUpdateView,
+    AudioDeleteView,
 )
 from .views.blog_view import (
     BlogPostDetail,
@@ -66,5 +66,5 @@ urlpatterns = [
     path("audio-create/", AudioCreateView.as_view(), name="audio-create"),
     path("audio-detail/<str:slug>", AudioDetailView.as_view(), name="audio-detail"),
     path("audio-update/<str:slug>", AudioUpdateView.as_view(), name="audio-update"),
-    path("audio-delete/<str:slug>", AudioDeleteView.as_view(), name="audio-delete")
+    path("audio-delete/<str:slug>", AudioDeleteView.as_view(), name="audio-delete"),
 ]

@@ -5,7 +5,9 @@ from apps.akromdev.utils import generate_slug
 
 
 class AudioCategory(AbstractBaseModel):
-    name = models.CharField(max_length=100)
+    name = models.CharField(
+        _("name"), max_length=100, help_text=_("Required. 100 charecters")
+    )
 
     def __str__(self) -> str:
         return self.name
@@ -20,12 +22,24 @@ class Audio(AbstractBaseModel):
     author = models.ForeignKey(
         "users.UserAccount", models.CASCADE, related_name="audios"
     )
-    title = models.CharField(max_length=120)
-    slug = models.SlugField(max_length=200, unique=True)
-    description = models.CharField(max_length=200, blank=True, null=True)
-    category = models.ForeignKey(AudioCategory, models.CASCADE, related_name="audios")
-    cover = models.ImageField(upload_to=f"audio/cover/%Y/%m/%d/")
-    audio = models.FileField(upload_to=f"audio/audio/%Y/%m/%d/")
+    title = models.CharField(
+        _("title"), max_length=120, help_text=_("Required. 120 charecters.")
+    )
+    slug = models.SlugField(
+        _("slug"),
+        max_length=200,
+        unique=True,
+        help_text=_("Required. 200 charecters or fewer."),
+        error_messages={"unique": _("With that slug already exists.")},
+    )
+    description = models.CharField(
+        _("description"), max_length=200, blank=True, null=True
+    )
+    category = models.ForeignKey(
+        AudioCategory, models.CASCADE, related_name="audios"
+    )
+    cover = models.ImageField(_("cover"), upload_to=f"audio/cover/%Y/%m/%d/")
+    audio = models.FileField(_("audio"), upload_to=f"audio/audio/%Y/%m/%d/")
 
     def __str__(self) -> str:
         return self.title

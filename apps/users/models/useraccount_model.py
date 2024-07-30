@@ -15,33 +15,56 @@ class UserAccount(AbstractBaseModel):
     user = models.ForeignKey(
         "users.User", models.DO_NOTHING, related_name="account", db_index=True
     )
-    first_name = models.CharField(max_length=100, blank=True, null=True)
-    last_name = models.CharField(max_length=100, blank=True, null=True)
-    username = models.CharField(max_length=150, blank=True)
-    email = models.EmailField(max_length=150, blank=True)
+    first_name = models.CharField(
+        _("first name"),
+        max_length=100,
+        blank=True,
+        null=True,
+        help_text=_("100 charecters."),
+    )
+    last_name = models.CharField(
+        _("last name"),
+        max_length=100,
+        blank=True,
+        null=True,
+        help_text=_("100 charecters."),
+    )
+    username = models.CharField(
+        _("username"),
+        max_length=150,
+        blank=True,
+        help_text=_(
+            "Required. 150 charecters or fewer. Latters, digits and @/./+/-/_ only."
+        ),
+    )
+    email = models.EmailField(_("email address"), max_length=150, blank=True)
     avatar = models.ImageField(
+        _("user avatar image"),
         upload_to="avatar/images/avatar/%Y/%m/%d",
         blank=True,
         null=True,
         default=auth.USER_ACCOUNT_DEFAULT_IMG + auth.USER_ACCOUNT_IMG_NAME,
     )
     bg_cover = models.ImageField(
+        _("account baground cover"),
         upload_to="bg/images/%Y/%m/%d",
         blank=True,
         null=True,
         default=auth.USER_ACCOUNT_BG_DEFAULT_IMG + auth.USER_ACCOUNT_BG_IMG_NAME,
     )
-    bio = models.CharField(max_length=300, blank=True, null=True)
-    birthday = models.DateField(blank=True, null=True)
-    phone_number = PhoneNumberField(blank=True, null=True, region="UZ")
-    gender = models.CharField(
-        max_length=1, choices=GENDER_CHOICES, blank=True, null=True
+    bio = models.CharField(_("bio"), max_length=300, blank=True, null=True)
+    birthday = models.DateField(_("birth day"), blank=True, null=True)
+    phone_number = PhoneNumberField(
+        _("phone number"), blank=True, null=True, region="UZ"
     )
-    country = models.CharField(max_length=50, blank=True, null=True)
+    gender = models.CharField(
+        _("gender"), max_length=1, choices=GENDER_CHOICES, blank=True, null=True
+    )
+    country = models.CharField(_("country"), max_length=50, blank=True, null=True)
     socials = models.ManyToManyField(
         UserAccountSocialUrl, related_name="user_acccount", db_index=True, blank=True
     )
-    is_premium = models.BooleanField(default=False)
+    is_premium = models.BooleanField(_("premium"), default=False)
 
     def follow(self, user):
         self.user.folowings.add(user)
@@ -74,4 +97,4 @@ class UserAccount(AbstractBaseModel):
         return self.username
 
 
-__all__ = ("UserAccount", )
+__all__ = ("UserAccount",)

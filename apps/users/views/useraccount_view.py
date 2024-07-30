@@ -34,4 +34,5 @@ class UserAccountView(LoginRequiredMixin, View):
         messages.error(request, "You`r fields are not valid !")
         return redirect("users:user-account")
 
-__all__ = ("UserAccountView", )
+
+__all__ = ("UserAccountView",)

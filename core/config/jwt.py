@@ -35,4 +35,4 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
-__all__ = ("SIMPLE_JWT", )
+__all__ = ("SIMPLE_JWT",)

@@ -1,5 +1,5 @@
 from django.views.generic import ListView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.urls import reverse
 from django.views.generic import DeleteView
@@ -19,19 +19,18 @@ class PictureView(ListView):
 class PictureDetailView(View):
     def get(self, request, slug):
         pictures = Picture.objects.all().order_by("-created_at")
-        picture = pictures.get(slug=slug)
-        return render(request, "picture/picture-detail.html", {
-            "picture": picture,
-            "pictures": pictures
-        })
+        picture = get_object_or_404(pictures, slug=slug)
+        return render(
+            request,
+            "picture/picture-detail.html",
+            {"picture": picture, "pictures": pictures},
+        )
 
 
 class PictureCreateView(View):
     def get(self, request):
         form = PictureCreateForm()
-        return render(request, "picture/picture-create.html", {
-            "form": form
-        })
+        return render(request, "picture/picture-create.html", {"form": form})
 
     def post(self, request):
         form = PictureCreateForm(data=request.POST, files=request.FILES)
@@ -41,54 +40,61 @@ class PictureCreateView(View):
 
             if is_photo(str(image.name)):
                 Picture.objects.create(
-                    author = UserAccount.objects.get(user=request.user),
-                    image = image,
-                    description = form.cleaned_data.get("description"),
+                    author=UserAccount.objects.get(user=request.user),
+                    image=image,
+                    description=form.cleaned_data.get("description"),
                 )
                 messages.success(request, "Successfully created picture")
                 return redirect("akromdev:picture-create")
-            
+
             messages.error(request, "Your phot are not valid !")
             return redirect("akromdev:picture-create")
-        
+
         messages.error(request, "Error in your fields !")
         return redirect("akromdev:picture-create")
 
 
 class PictureUpdateView(View):
     def get(self, request, slug):
-        picture = Picture.objects.get(slug = slug)
+        picture = get_object_or_404(Picture, slug=slug)
         form = PictureUpdateForm(instance=picture)
-        return render(request, "picture/picture-update.html", {
-            "form": form,
-            "picture": picture
-        })
+        return render(
+            request, "picture/picture-update.html", {"form": form, "picture": picture}
+        )
 
     def post(self, request, slug):
-        picture = Picture.objects.filter(slug = slug)
+        picture = Picture.objects.filter(slug=slug)
         form = PictureUpdateForm(
             data=request.POST,
             instance=picture.first(),
         )
         if form.is_valid():
             picture.update(
-                author = UserAccount.objects.get(user = request.user),
-                description = form.cleaned_data.get("description"),
+                author=get_object_or_404(UserAccount, user=request.user),
+                description=form.cleaned_data.get("description"),
             )
 
             messages.success(request, "Successfully updated picture")
-            return redirect(reverse("akromdev:picture-update", kwargs={"slug": picture.first().slug}))
-        
+            return redirect(
+                reverse(
+                    "akromdev:picture-update", kwargs={"slug": picture.first().slug}
+                )
+            )
+
         messages.error(request, "Your fields are not valid !")
-        return redirect(reverse("akromdev:picture-update", kwargs={"slug": picture.first().slug}))
-    
+        return redirect(
+            reverse("akromdev:picture-update", kwargs={"slug": picture.first().slug})
+        )
+
 
 class PictureDeleteView(DeleteView):
     def get(self, request, slug):
-        return render(request, "picture/picture-delete.html", {
-            "picture": Picture.objects.get(slug = slug)
-        })
-    
+        return render(
+            request,
+            "picture/picture-delete.html",
+            {"picture": get_object_or_404(Picture, slug=slug)},
+        )
+
     def post(self, request, slug):
-        Picture.objects.get(slug = slug).delete()
+        get_object_or_404(Picture, slug=slug).delete()
         return redirect("akromdev:pictures")

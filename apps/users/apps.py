@@ -7,4 +7,5 @@ class UsersConfig(AppConfig):
 
     def ready(self) -> None:
         import apps.users.signals
+
         return super().ready()

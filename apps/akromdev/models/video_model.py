@@ -8,16 +8,29 @@ class Video(AbstractBaseModel):
     author = models.ForeignKey(
         "users.UserAccount", models.CASCADE, related_name="videos"
     )
-    title = models.CharField(max_length=150, db_index=True)
-    slug = models.SlugField(max_length=200, unique=True, db_index=True)
-    description = models.CharField(max_length=200, blank=True, null=True)
-    content = models.TextField()
+    title = models.CharField(
+        _("title"),
+        max_length=150,
+        db_index=True,
+        help_text=_("Required. 150 charecters"),
+    )
+    slug = models.SlugField(
+        max_length=200,
+        unique=True,
+        db_index=True,
+        help_text=_("Required. 200 charecters or fewer."),
+        error_messages={"unique": _("With that slug already exists.")},
+    )
+    description = models.CharField(
+        _("description"), max_length=200, blank=True, null=True
+    )
+    content = models.TextField(_("content"), help_text=_("Required."))
     cover = models.ImageField(upload_to=f"video/covers/%Y/%m/%d/")
     video = models.FileField(upload_to=f"video/videos/%Y/%m/%d/")
     category = models.ForeignKey(
         "akromdev.VideoCategory", models.CASCADE, related_name="videos"
     )
-    watched = models.IntegerField(default=0)
+    watched = models.IntegerField(_("watched"), default=0)
 
     def save(self, *args, **kwargs):
         self.slug = generate_slug(self.title)
@@ -32,7 +45,9 @@ class Video(AbstractBaseModel):
 
 
 class VideoCategory(AbstractBaseModel):
-    name = models.CharField(max_length=100)
+    name = models.CharField(
+        _("name"), max_length=100, help_text=_("Required. 100 charecters")
+    )
 
     def __str__(self) -> str:
         return self.name
@@ -47,7 +62,7 @@ class VideoComment(AbstractBaseModel):
     user = models.ForeignKey(
         "users.UserAccount", models.CASCADE, related_name="video_comments"
     )
-    message = models.TextField()
+    message = models.TextField(_("message"), help_text=_("Required."))
 
     def __str__(self) -> str:
         return self.message

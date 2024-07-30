@@ -6,8 +6,14 @@ from apps.users.models import UserAccount
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         User = get_user_model()
-        self.create_superuser(User, "Akrom", "Rustamov", "Akromjon2", "rustamovakromjon56@gmail.com", "2007")
-
+        self.create_superuser(
+            User,
+            "Akrom",
+            "Rustamov",
+            "Akromjon",
+            "rustamovakromjon56@gmail.com",
+            "2007",
+        )
 
     def create_superuser(self, User, first_name, last_name, username, email, password):
         if not User.objects.filter(username=username).exists():
@@ -15,18 +21,15 @@ class Command(BaseCommand):
             user.first_name = first_name
             user.last_name = last_name
             user.save()
-
             UserAccount.objects.create(
-                user = user,
-                first_name = user.first_name,
-                last_name = user.last_name,
-                username = user.username,
-                email = email,
+                user=user,
+                first_name=user.first_name,
+                last_name=user.last_name,
+                username=user.username,
+                email=user.email
             )
             self.stdout.write(
                 self.style.SUCCESS(f"Superuser {username} successfully created.")
             )
         else:
-            self.stdout.write(
-                self.style.ERROR(f"Superuser {username} already exists.")
-            )
+            self.stdout.write(self.style.ERROR(f"Superuser {username} already exists."))

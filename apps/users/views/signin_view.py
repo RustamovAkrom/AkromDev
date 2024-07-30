@@ -26,4 +26,5 @@ class SignInView(View):
         messages.error(request, "Your fields are nov valid !")
         return redirect("users:sign-in")
 
-__all__ = ("SignInView", )
+
+__all__ = ("SignInView",)

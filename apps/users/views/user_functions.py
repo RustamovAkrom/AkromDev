@@ -62,6 +62,6 @@ def user_folowings(request, username):
 __all__ = (
     "user_follow",
     "user_unfollow",
-    "user_folowers", 
+    "user_folowers",
     "user_folowings",
 )

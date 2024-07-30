@@ -4,9 +4,17 @@ from apps.shared.models import AbstractBaseModel
 
 
 class AboutSocialUrl(AbstractBaseModel):
-    name = models.CharField(max_length=100)
-    description = models.CharField(max_length=200, blank=True, null=True)
-    url = models.URLField()
+    name = models.CharField(
+        _("name"), max_length=100, help_text=_("Required. 100 charecters.")
+    )
+    description = models.CharField(
+        _("description"),
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text=_("200 charecters."),
+    )
+    url = models.URLField(_("url"))
 
     def __str__(self) -> str:
         return self.name
@@ -19,8 +27,10 @@ class AboutSocialUrl(AbstractBaseModel):
 
 class About(AbstractBaseModel):
     user = models.OneToOneField("users.User", models.CASCADE, related_name="user_about")
-    title = models.CharField(max_length=120)
-    content = models.TextField()
+    title = models.CharField(
+        _("title"), max_length=120, help_text=_("Required. 120 charecters.")
+    )
+    content = models.TextField(_("content"), help_text=(_("Required.")))
     social = models.ManyToManyField(
         AboutSocialUrl, related_name="url_about", blank=True
     )

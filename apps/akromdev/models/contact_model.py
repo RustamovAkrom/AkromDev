@@ -4,10 +4,16 @@ from apps.shared.models import AbstractBaseModel
 
 
 class Contact(AbstractBaseModel):
-    name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=120)
-    subject = models.CharField(max_length=100)
-    message = models.TextField()
+    name = models.CharField(
+        _("name"), max_length=100, help_text=_("Required. 100 charecters.")
+    )
+    email = models.EmailField(
+        _("email address"), max_length=120, help_text=_("Required. 120 charecters.")
+    )
+    subject = models.CharField(
+        _("subject"), max_length=100, help_text=_("Required. 100 charecters")
+    )
+    message = models.TextField(_("message"), help_text=_("Required."))
 
     def __str__(self) -> str:
         return self.message

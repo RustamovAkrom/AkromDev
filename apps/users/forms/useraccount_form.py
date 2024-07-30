@@ -125,4 +125,5 @@ class UserAccountForm(forms.ModelForm):
             "socials",
         )
 
-__all__ = ("UserAccountForm", )
+
+__all__ = ("UserAccountForm",)

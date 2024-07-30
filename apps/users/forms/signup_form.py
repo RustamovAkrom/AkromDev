@@ -23,4 +23,5 @@ class SignUpForm(forms.Form):
         )
     )
 
-__all__ = ("SignUpForm", )
+
+__all__ = ("SignUpForm",)

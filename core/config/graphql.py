@@ -1,3 +1,1 @@
-GRAPHENE = {
-    "SCHEMA": "apps.users.schemas.schema"
-}
+GRAPHENE = {"SCHEMA": "apps.users.schemas.schema"}

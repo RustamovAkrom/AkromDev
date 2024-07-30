@@ -19,13 +19,13 @@ DATABASES = {
         "PASSWORD": os.getenv("PASSWORD"),
         "HOST": os.getenv("HOST"),
         "PORT": os.getenv("PORT"),
-        "TEST": {"NAME": "test_akromdev_db_2"}
+        "TEST": {"NAME": "test_akromdev_db_2"},
     }
 }
 
 CACHES = {
-    'default': {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache", # Cache for redis
-        "LOCATION": "redis://localhost:6279/1"
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",  # Cache for redis
+        "LOCATION": "redis://localhost:6279/1",
     },
 }

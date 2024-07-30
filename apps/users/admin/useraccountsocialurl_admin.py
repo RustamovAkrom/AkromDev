@@ -4,7 +4,15 @@ from apps.users.models.useraccountsocialurl import UserAccountSocialUrl
 
 @admin.register(UserAccountSocialUrl)
 class UseraccountSocialUrlAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        "name",
+        "description",
+        "url",
+    )
+    search_fields = (
+        "name",
+        "description",
+    )
 
 
-__all__ = ("UseraccountSocialUrlAdmin", )
+__all__ = ("UseraccountSocialUrlAdmin",)

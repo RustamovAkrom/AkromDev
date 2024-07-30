@@ -32,4 +32,5 @@ class SignUpView(View):
         messages.warning(request, "Your username or password are not valid !")
         return redirect("users:sign-up")
 
-__all__ = ("SignUpView", )
+
+__all__ = ("SignUpView",)

@@ -8,12 +8,21 @@ class Post(AbstractBaseModel):
     author = models.ForeignKey(
         "users.UserAccount", models.CASCADE, related_name="posts"
     )
-    title = models.CharField(max_length=150)
-    slug = models.SlugField(max_length=200, unique=True)
-    bg_image = models.ImageField(upload_to="blog/images/%Y/%m/%d", blank=True, null=True)
-    description = models.CharField(max_length=100, blank=True, null=True)
-    content = models.TextField()
-    is_active = models.BooleanField(default=False)
+    title = models.CharField(
+        _("title"), max_length=150, help_text=_("Required. 150 charecters")
+    )
+    slug = models.SlugField(
+        _("slug"),
+        max_length=200,
+        unique=True,
+        help_text=_("Required. 200 charecters."),
+        error_messages={"unique": "With that slug already exists"},
+    )
+    description = models.CharField(
+        _("description"), max_length=100, blank=True, null=True
+    )
+    content = models.TextField(_("content"), help_text=_("Required."))
+    is_active = models.BooleanField(_("active"), default=False)
 
     def __str__(self) -> str:
         return self.title
@@ -31,7 +40,7 @@ class Post(AbstractBaseModel):
 class PostComment(AbstractBaseModel):
     post = models.ForeignKey(Post, models.CASCADE, related_name="comments")
     user = models.ForeignKey("users.User", models.CASCADE, related_name="comments")
-    message = models.TextField()
+    message = models.TextField(_("message"), help_text=_("Required."))
 
     def __str__(self) -> str:
         return self.message

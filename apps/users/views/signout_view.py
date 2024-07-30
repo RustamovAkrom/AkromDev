@@ -15,4 +15,4 @@ class SignOutView(LoginRequiredMixin, View):
         return redirect("akromdev:home")
 
 
-__all__ = ("SignOutView", )
+__all__ = ("SignOutView",)

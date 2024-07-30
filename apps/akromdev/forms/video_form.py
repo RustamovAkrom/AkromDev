@@ -91,7 +91,7 @@ class VideoUpdateForm(forms.ModelForm):
                 "class": "form-control",
                 "placeholder": "description...",
             }
-        )
+        ),
     )
     content = forms.CharField(
         widget=forms.Textarea(

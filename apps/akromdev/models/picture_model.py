@@ -8,9 +8,16 @@ class Picture(AbstractBaseModel):
     author = models.ForeignKey(
         "users.UserAccount", models.CASCADE, related_name="pictures"
     )
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(
+        _("slug"),
+        unique=True,
+        help_text=_("Required. 200 charecters or fewer."),
+        error_messages={"unique": _("With that slug already exists.")},
+    )
     image = models.ImageField(upload_to="pictures/images/%Y/%m/%d")
-    description = models.CharField(max_length=200, blank=True, null=True)
+    description = models.CharField(
+        _("description"), max_length=200, blank=True, null=True
+    )
 
     def __str__(self) -> str:
         return self.image.url

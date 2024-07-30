@@ -16,4 +16,5 @@ class UserAccountSocialUrl(AbstractBaseModel):
         verbose_name_plural = _("Account social urls")
         db_table = "user_account_social_urls"
 
-__all__ = ("UserAccountSocialUrl", )
+
+__all__ = ("UserAccountSocialUrl",)
