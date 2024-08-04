@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from apps.users.utils import generate_token
 
-
+ 
 class User(AbstractUser):
     token = models.CharField(
         max_length=200,
@@ -22,7 +22,7 @@ class User(AbstractUser):
         db_table = "users"
 
     def save(self, *args, **kwargs):
-        self.token = generate_token(200)
+        self.token = generate_token(100)
         return super().save(*args, **kwargs)
 
     def __str__(self) -> str:

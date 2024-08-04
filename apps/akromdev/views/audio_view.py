@@ -4,10 +4,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from apps.akromdev.models.audio_model import Audio, AudioCategory
+from apps.akromdev.models.audio_model import Audio
 from apps.akromdev.forms.audio_form import AudioCreateForm, AudioUpdateForm
 from apps.users.models import UserAccount
 from apps.akromdev.utils import is_photo, is_audio
+
+import markdown2
 
 
 class AudioView(View):
@@ -24,7 +26,13 @@ class AudioDetailView(View):
                 "-created_at"
             )
             return render(
-                request, "audio/audio-detail.html", {"audio": audio, "audios": audios}
+                request,
+                "audio/audio-detail.html",
+                {
+                    "audio_description_html": markdown2.markdown(audio.description),
+                    "audio": audio,
+                    "audios": audios,
+                },
             )
         return redirect("users:sign-up")
 

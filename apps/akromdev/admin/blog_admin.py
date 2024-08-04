@@ -20,7 +20,7 @@ class PostAdmin(admin.ModelAdmin):
         "slug",
     )
     list_filter = ("created_at",)
-    fields = ("author", "title", "bg_image", "description", "content", "is_active")
+    fields = ("author", "title", "description", "content", "is_active")
 
 
 @admin.register(PostComment)

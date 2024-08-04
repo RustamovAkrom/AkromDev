@@ -1,4 +1,5 @@
 from django.views import View
+from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
@@ -12,6 +13,7 @@ class SignInView(View):
 
     def post(self, request):
         form = SignInForm(request.POST)
+
         if form.is_valid():
             form.save()
             user = authenticate(
@@ -21,10 +23,10 @@ class SignInView(View):
             login(request, user)
 
             messages.success(request, f"Successfully registered {user.username}")
-            return redirect("akromdev:home")
+            return redirect(reverse("akromdev:home"))
 
         messages.error(request, "Your fields are nov valid !")
-        return redirect("users:sign-in")
+        return redirect(reverse("users:sign-in"))
 
 
 __all__ = ("SignInView",)

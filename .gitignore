@@ -23,3 +23,6 @@ MD/
 env/
 ELASTIC_SEARCH.md
 settings.py
+*.md
+example_socket/
+graphql_example/

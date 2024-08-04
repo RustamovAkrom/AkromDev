@@ -2,7 +2,6 @@ from django.views.generic import ListView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.urls import reverse
-from django.views.generic import DeleteView
 from django.contrib import messages
 from apps.akromdev.models.picture_model import Picture
 from apps.akromdev.forms.picture_form import PictureCreateForm, PictureUpdateForm
@@ -87,7 +86,7 @@ class PictureUpdateView(View):
         )
 
 
-class PictureDeleteView(DeleteView):
+class PictureDeleteView(View):
     def get(self, request, slug):
         return render(
             request,

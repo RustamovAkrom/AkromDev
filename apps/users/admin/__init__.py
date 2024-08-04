@@ -1,3 +1,3 @@
-from .user_admin import *
-from .useraccount_admin import *
-from .useraccountsocialurl_admin import *
+from .user_admin import *  # noqa
+from .useraccount_admin import *  # noqa
+from .useraccountsocialurl_admin import *  # noqa

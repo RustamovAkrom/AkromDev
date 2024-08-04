@@ -26,8 +26,9 @@ from .views.audio_view import (
     AudioDeleteView,
 )
 from .views.blog_view import (
-    BlogPostDetail,
+    BlogPostDetailView,
     BlogPostView,
+    UserPostView,
     PostUpdateView,
     PostDeleteView,
     PostCreateView,
@@ -52,7 +53,10 @@ urlpatterns = [
         "picture-delete/<str:slug>", PictureDeleteView.as_view(), name="picture-delete"
     ),
     path("blog-posts/", BlogPostView.as_view(), name="posts"),
-    path("blog-post-detail/<str:slug>", BlogPostDetail.as_view(), name="post-detail"),
+    path(
+        "blog-post-detail/<str:slug>", BlogPostDetailView.as_view(), name="post-detail"
+    ),
+    path("user-posts/<str:username>", UserPostView.as_view(), name="user-posts"),
     path("post-update/<str:slug>", PostUpdateView.as_view(), name="post-update"),
     path("post-delete/<str:slug>", PostDeleteView.as_view(), name="post-delete"),
     path("post-create/", PostCreateView.as_view(), name="post-create"),

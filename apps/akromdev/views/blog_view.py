@@ -5,32 +5,62 @@ from django.urls import reverse
 from apps.akromdev.models.blog_model import Post
 from apps.akromdev.forms.blog_form import PostUpdateForm, PostCreateForm
 from apps.users.models import UserAccount
+from django.contrib.auth.mixins import LoginRequiredMixin
+import markdown2
 
 
 class BlogPostView(View):
     def get(self, request):
-        posts = Post.objects.filter(is_active=True)
+        if request.user.is_authenticated:
+            posts = Post.objects.filter(is_active=True).exclude(
+                author=get_object_or_404(UserAccount, user=request.user)
+            )
+
+        else:
+            posts = Post.objects.filter(is_active=True).order_by("-created_at")
+
         return render(request, "blog/blogs.html", {"posts": posts})
 
 
-class BlogPostDetail(View):
+class BlogPostDetailView(View):
     def get(self, request, slug):
-        posts = Post.objects.filter(is_active=True)
-        post = posts.get(slug=slug)
-        return render(request, "blog/blog-detail.html", {"post": post, "posts": posts})
+        if request.user.is_authenticated:
+            posts = Post.objects.filter(is_active=True)
+            post = posts.get(slug=slug)
+
+            return render(
+                request,
+                "blog/blog-detail.html",
+                {
+                    "post_content_html": markdown2.markdown(post.content),
+                    "post": post,
+                    "posts": posts,
+                },
+            )
+
+        else:
+            return redirect("users:sign-up")
 
 
-class PostCreateView(View):
+class UserPostView(LoginRequiredMixin, View):
+    def get(self, request, username):
+        posts = Post.objects.filter(
+            author=get_object_or_404(UserAccount, username=username)
+        )
+        return render(request, "blog/user-posts.html", {"posts": posts})
+
+
+class PostCreateView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, "blog/post-create.html", {"form": PostCreateForm()})
 
     def post(self, request):
         form = PostCreateForm(data=request.POST, files=request.FILES)
+
         if form.is_valid():
             post = Post.objects.create(
                 author=get_object_or_404(UserAccount, user=request.user),
                 title=form.cleaned_data.get("title"),
-                bg_image=form.cleaned_data.get("bg_image"),
                 description=form.cleaned_data.get("description"),
                 content=form.cleaned_data.get("content"),
                 is_active=form.cleaned_data.get("is_active"),
@@ -42,9 +72,10 @@ class PostCreateView(View):
         return redirect(reverse("akromdev:post-create"))
 
 
-class PostUpdateView(View):
+class PostUpdateView(LoginRequiredMixin, View):
     def get(self, request, slug):
         post = get_object_or_404(Post, slug=slug)
+
         return render(
             request,
             "blog/post-update.html",
@@ -53,6 +84,7 @@ class PostUpdateView(View):
 
     def post(self, request, slug):
         post = Post.objects.filter(slug=slug)
+
         form = PostUpdateForm(
             data=request.POST,
             files=request.POST,
@@ -62,7 +94,6 @@ class PostUpdateView(View):
             post.update(
                 author=get_object_or_404(UserAccount, user=request.user),
                 title=form.cleaned_data.get("title"),
-                bg_image=form.cleaned_data.get("bg_image"),
                 description=form.cleaned_data.get("description"),
                 content=form.cleaned_data.get("content"),
                 is_active=form.cleaned_data.get("is_active"),
@@ -77,7 +108,7 @@ class PostUpdateView(View):
         return redirect(reverse("akromdev:post-update", kwargs={"slug": slug}))
 
 
-class PostDeleteView(View):
+class PostDeleteView(LoginRequiredMixin, View):
     def get(self, request, slug):
         return render(
             request,

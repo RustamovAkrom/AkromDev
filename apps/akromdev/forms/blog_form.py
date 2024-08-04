@@ -13,17 +13,6 @@ class PostUpdateForm(forms.ModelForm):
             }
         )
     )
-    bg_image = forms.ImageField(
-        required=False,
-        widget=forms.FileInput(
-            attrs={
-                "type": "file",
-                "name": "bg_image",
-                "class": "form-control",
-                "placeholder": "Baground image",
-            }
-        ),
-    )
     description = forms.CharField(
         required=False,
         widget=forms.TextInput(
@@ -46,7 +35,7 @@ class PostUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ("title", "bg_image", "description", "content", "is_active")
+        fields = ("title", "description", "content", "is_active")
 
 
 class PostCreateForm(forms.ModelForm):
@@ -60,17 +49,6 @@ class PostCreateForm(forms.ModelForm):
             }
         )
     )
-    bg_image = forms.ImageField(
-        required=False,
-        widget=forms.FileInput(
-            attrs={
-                "type": "file",
-                "name": "bg_image",
-                "class": "form-control",
-                "placeholder": "Baground image",
-            }
-        ),
-    )
     description = forms.CharField(
         required=False,
         widget=forms.TextInput(
@@ -93,4 +71,4 @@ class PostCreateForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ("title", "bg_image", "description", "content", "is_active")
+        fields = ("title", "description", "content", "is_active")

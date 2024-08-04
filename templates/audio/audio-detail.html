@@ -12,7 +12,7 @@
         <div class="modal-body p-4 pt-1">
             <h2 class="fw-bold">{{ audio.title }}</h2>
             {% if audio.description %}
-            <h5 class="modal-title">{{ audio.description }}</h5>
+                <h5 class="modal-title">{{ audio_description_html|safe }}</h5>
             {% endif %}
             <br>
             <div class="mt-1 mb-1">

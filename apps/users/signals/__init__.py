@@ -1,1 +1,1 @@
-from .usermodeldocument_signal import *
+from .usermodeldocument_signal import *  # noqa

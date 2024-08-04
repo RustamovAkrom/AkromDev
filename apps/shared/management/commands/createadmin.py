@@ -26,7 +26,7 @@ class Command(BaseCommand):
                 first_name=user.first_name,
                 last_name=user.last_name,
                 username=user.username,
-                email=user.email
+                email=user.email,
             )
             self.stdout.write(
                 self.style.SUCCESS(f"Superuser {username} successfully created.")

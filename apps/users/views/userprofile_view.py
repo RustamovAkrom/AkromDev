@@ -10,7 +10,7 @@ class UserProfileView(View):
         if request.user.is_authenticated:
             if username[0] == "@":
 
-                user = User.objects.get(username=username[1:])
+                user = get_object_or_404(User, username=username[1:])
                 user_account = get_object_or_404(UserAccount, user=user)
                 videos = Video.objects.filter(author=user_account).order_by(
                     "-created_at"

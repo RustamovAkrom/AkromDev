@@ -1,1 +1,1 @@
-from .video_form import *
+from .video_form import *  # noqa

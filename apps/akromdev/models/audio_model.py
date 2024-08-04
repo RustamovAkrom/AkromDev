@@ -35,9 +35,7 @@ class Audio(AbstractBaseModel):
     description = models.CharField(
         _("description"), max_length=200, blank=True, null=True
     )
-    category = models.ForeignKey(
-        AudioCategory, models.CASCADE, related_name="audios"
-    )
+    category = models.ForeignKey(AudioCategory, models.CASCADE, related_name="audios")
     cover = models.ImageField(_("cover"), upload_to=f"audio/cover/%Y/%m/%d/")
     audio = models.FileField(_("audio"), upload_to=f"audio/audio/%Y/%m/%d/")
 

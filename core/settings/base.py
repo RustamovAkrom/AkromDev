@@ -6,16 +6,15 @@ import os
 from core.config import *
 from dotenv import load_dotenv, find_dotenv
 
+
 load_dotenv(find_dotenv("envs/.env"))
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+
 SECRET_KEY = os.getenv("SECRET_KEY", "1")
-
-DEBUG = os.getenv("DEBUG", 1)
-
+DEBUG: bool = os.getenv("DEBUG", "True") == "True"
 ALLOWED_HOSTS = ["*"]
+
 
 INSTALLED_APPS = CUSTOM_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
@@ -32,10 +31,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "core.urls"
 
+TEMPLATES_DIR = "templates"
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["templates"],
+        "DIRS": [TEMPLATES_DIR],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -92,5 +93,7 @@ STATIC_URL = "static/"
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR.joinpath("media")
 STATIC_ROOT = BASE_DIR.joinpath("staticfiles")
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
 
 STATICFILES_DIRS = [BASE_DIR.joinpath("static")]
+

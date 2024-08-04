@@ -10,13 +10,14 @@ class AudioCreateForm(forms.ModelForm):
         ),
     )
     description = forms.CharField(
+        required=False,
         widget=forms.TextInput(
             attrs={
                 "type": "description",
                 "name": "description",
                 "class": "form-control",
             }
-        )
+        ),
     )
     cover = forms.ImageField(
         widget=forms.FileInput(
@@ -42,13 +43,14 @@ class AudioUpdateForm(forms.ModelForm):
         ),
     )
     description = forms.CharField(
+        required=False,
         widget=forms.TextInput(
             attrs={
                 "type": "description",
                 "name": "description",
                 "class": "form-control",
             }
-        )
+        ),
     )
 
     class Meta:

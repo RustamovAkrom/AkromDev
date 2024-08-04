@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from graphene_django.views import GraphQLView
 
-from .schema import swagger_urlpatterns
+from .swagger_schema import swagger_urlpatterns
 
 
 urlpatterns = [

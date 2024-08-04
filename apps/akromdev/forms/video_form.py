@@ -29,6 +29,7 @@ class VideoCreateForm(forms.ModelForm):
         ),
     )
     description = forms.CharField(
+        required=False,
         widget=forms.TextInput(
             attrs={
                 "type": "text",
@@ -36,7 +37,7 @@ class VideoCreateForm(forms.ModelForm):
                 "class": "form-control",
                 "placeholder": "description...",
             }
-        )
+        ),
     )
     content = forms.CharField(
         widget=forms.Textarea(

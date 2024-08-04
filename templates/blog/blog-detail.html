@@ -15,13 +15,15 @@
     
           <article class="blog-post">
             <h2 class="blog-post-title">{{ post.title }}</h2>
-            <p class="blog-post-meta">{{ post.created_at }} by | <a href="{% url 'users:user-profile' post.author.username %}">{{ post.author.first_name }} {{ post.author.last_name }}</a></p>
+            <p class="blog-post-meta">{{ post.created_at }} by | <a class="text-dark" href="{% url 'users:user-profile' post.author.username %}">{{ post.author.first_name }} {{ post.author.last_name }}</a></p>
             <blockquote class="blockquote">
                 {% if post.description %}
-                    <p>{{ post.description }}</p>
+                    <p><small>{{ post.description }}</small></p>
                 {% endif %}
             </blockquote>
-            <p>{{ post.content }}</p>
+            <p>
+              {{ post_content_html|safe }}
+            </p>
             <hr>
           </article>
 

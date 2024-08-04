@@ -2,25 +2,56 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from django.views.generic import DeleteView
 from django.contrib import messages
 from django.urls import reverse
 
-from apps.akromdev.models.video_model import Video, VideoComment, VideoLike
+from apps.akromdev.models.video_model import (
+    Video,
+    VideoComment,
+    VideoLike,
+    VideoCategory,
+)
 from apps.akromdev.forms.video_form import (
     VideoCommentForm,
     VideoCreateForm,
     VideoUpdateForm,
 )
 from apps.users.models import UserAccount
-
 from apps.akromdev.utils import is_video, is_photo
+
+import markdown2
 
 
 class VideoView(View):
     def get(self, request):
-        videos = Video.objects.all().order_by("-created_at")
-        return render(request, "video/videos.html", {"videos": videos})
+        category_filter_name = request.GET.get("category", None)
+        search_filter_name = request.GET.get("search", None)
+
+        if search_filter_name is not None:
+            videos = Video.objects.filter(title__icontains=search_filter_name).order_by(
+                "-created_at"
+            )
+
+            if not videos:
+                videos = Video.objects.filter(
+                    category=VideoCategory.objects.filter(
+                        name__icontains=search_filter_name
+                    ).first()
+                ).order_by("-created_at")
+
+        else:
+            if category_filter_name is not None:
+                videos = Video.objects.select_related("category").filter(
+                    category=get_object_or_404(VideoCategory, name=category_filter_name)
+                ).order_by("-created_at")
+            else:
+                videos = Video.objects.select_related("category").all().order_by("-created_at")
+
+        categories = VideoCategory.objects.all()
+
+        return render(
+            request, "video/videos.html", {"videos": videos, "categories": categories}
+        )
 
 
 class VideoDetailView(View):
@@ -40,6 +71,7 @@ class VideoDetailView(View):
                 "video/video-detail.html",
                 {
                     "title": video.title,
+                    "video_content_html": markdown2.markdown(video.content),
                     "video": video,
                     "videos": videos,
                     "video_comments": video_comment,
@@ -70,7 +102,7 @@ class VideoDetailView(View):
         return redirect(reverse("users:sign-up"))
 
 
-class VideoCreateView(View):
+class VideoCreateView(LoginRequiredMixin, View):
     def get(self, request):
         form = VideoCreateForm()
         return render(
@@ -112,7 +144,7 @@ class VideoCreateView(View):
         return redirect("akromdev:video-create")
 
 
-class VideoUpdateView(View):
+class VideoUpdateView(LoginRequiredMixin, View):
     def get(self, request, slug):
         video = get_object_or_404(Video, slug=slug)
         form = VideoUpdateForm(instance=video)
@@ -148,7 +180,7 @@ class VideoUpdateView(View):
         )
 
 
-class VideoDeleteView(View):
+class VideoDeleteView(LoginRequiredMixin, View):
     def get(self, request, slug):
         video = get_object_or_404(Video, slug=slug)
         return render(request, "video/video-delete.html", {"video": video})
@@ -158,6 +190,7 @@ class VideoDeleteView(View):
         return redirect("akromdev:videos")
 
 
+@login_required
 def video_like(request, slug):
     if request.user.is_authenticated:
         video = get_object_or_404(Video, slug=slug)
