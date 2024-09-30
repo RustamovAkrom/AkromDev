@@ -21,4 +21,4 @@ def is_audio(file: str):
 
 
 def is_photo(file: str):
-    return file.split(".")[-1].lower() in ["jpeg", "jpg", "png", "gif"]
+    return file.split(".")[-1].lower() in ["jpeg", "jpg", "png", "gif", "webp"]
